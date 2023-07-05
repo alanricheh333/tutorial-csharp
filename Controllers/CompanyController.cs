@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using start_csharp.Models;
+using tutorial_csharp.Models;
+using tutorial_csharp.Services.CompanyService;
 
 namespace csharp_tutorial.Controllers
 {
@@ -11,38 +13,30 @@ namespace csharp_tutorial.Controllers
     [Route("api/[controller]")]
     public class CompanyController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<Company> Get() {
-            
-            Company ss = new();
-            return Ok(ss);
+        private readonly ICompanyService companyService;
+
+        public CompanyController(ICompanyService companyService)
+        {
+            this.companyService = companyService;
         }
 
         [HttpGet("GetAll")]
-        public ActionResult<List<Company>> GetList() {
+        public async Task<ActionResult<ServiceResponse<List<Company>>>> Get() {
 
-            List<Company> ss = new List<Company>() { new Company(), new Company() };
-            return Ok(ss);
+            return Ok(await this.companyService.GetAllCompanies());
 
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Company> GetSingle(int id) {
-            //done
-            if (id == 1) {
-                return Ok(new Company());
-            } else if (id == 2) {
-                return Ok("I love my company");
-            }
-            else {
-                return BadRequest("Please Provide a valid ID");
-            }
+        public async Task<ActionResult<ServiceResponse<Company>>> GetSingle(int id) {
+            
+            return Ok(await this.companyService.GetCompanyById(id));
         }
 
         [HttpPost]
-        public ActionResult<Company> AddCompany() {
-            //ss
-            return Ok("Added");
+        public async Task<ActionResult<ServiceResponse<List<Company>>>> AddCompany(Company newCompany) {
+            
+            return Ok(await this.companyService.AddCompany(newCompany));
         }
     }
 }
