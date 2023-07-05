@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "J7rD/SQJZJQExU+/2CTyhsKpunjH41zNBF6q7Nwm0tZreBnrU+MqXs6b7f9Eu+9dSwo3ePrUXGjzNGgzZ8UrnQ==",
+  "dgSpecHash": "LSsE0zq/Jt0uXYFzVqb5wy5wqBJabBQ2uc0WlsbTpZt/Sr0WqdMFn/onC77QY8CtIgI4vg1fDSGWqDDxbcm2TQ==",
   "success": true,
   "projectFilePath": "/Users/alanalrechah/Desktop/tutorial-csharp/tutorial-csharp.csproj",
   "expectedPackageFiles": [
+    "/Users/alanalrechah/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/Users/alanalrechah/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "/Users/alanalrechah/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/alanalrechah/.nuget/packages/microsoft.aspnetcore.openapi/7.0.8/microsoft.aspnetcore.openapi.7.0.8.nupkg.sha512",
+    "/Users/alanalrechah/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/Users/alanalrechah/.nuget/packages/microsoft.entityframeworkcore/7.0.8/microsoft.entityframeworkcore.7.0.8.nupkg.sha512",
     "/Users/alanalrechah/.nuget/packages/microsoft.entityframeworkcore.abstractions/7.0.8/microsoft.entityframeworkcore.abstractions.7.0.8.nupkg.sha512",
     "/Users/alanalrechah/.nuget/packages/microsoft.entityframeworkcore.analyzers/7.0.8/microsoft.entityframeworkcore.analyzers.7.0.8.nupkg.sha512",

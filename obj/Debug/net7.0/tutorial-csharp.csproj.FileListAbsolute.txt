@@ -39,3 +39,5 @@
 /Users/alanalrechah/Desktop/tutorial-csharp/bin/Debug/net7.0/Microsoft.Extensions.DependencyModel.dll
 /Users/alanalrechah/Desktop/tutorial-csharp/bin/Debug/net7.0/Mono.TextTemplating.dll
 /Users/alanalrechah/Desktop/tutorial-csharp/bin/Debug/net7.0/System.CodeDom.dll
+/Users/alanalrechah/Desktop/tutorial-csharp/bin/Debug/net7.0/AutoMapper.dll
+/Users/alanalrechah/Desktop/tutorial-csharp/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll

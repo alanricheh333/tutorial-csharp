@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using start_csharp.Models;
+using tutorial_csharp.Dtos.Company;
 using tutorial_csharp.Models;
 
 namespace tutorial_csharp.Services.CompanyService
@@ -13,28 +15,39 @@ namespace tutorial_csharp.Services.CompanyService
             new Company(),
             new Company {Id = 1, Name = "Alan", LegalName="Legal Alan"},
         };
-        public async Task<ServiceResponse<List<Company>>> AddCompany(Company newCompany)
+
+        private readonly IMapper _mapper;
+
+        public CompanyService(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
+        public async Task<ServiceResponse<List<GetCompanyDto>>> AddCompany(AddCompanyDto newCompany)
         {   
-            ServiceResponse<List<Company>> response = new ServiceResponse<List<Company>>();
-            companies.Add(newCompany);
-            response.Data = companies;
+            ServiceResponse<List<GetCompanyDto>> response = new ServiceResponse<List<GetCompanyDto>>();
+            var company = _mapper.Map<Company>(newCompany);
+            company.Id = companies.Max(x => x.Id) + 1;
+            companies.Add(company);
+            response.Data = companies.Select(c => _mapper.Map<GetCompanyDto>(c)).ToList();
             
             return response;
         }
 
-        public async Task<ServiceResponse<List<Company>>> GetAllCompanies()
+        public async Task<ServiceResponse<List<GetCompanyDto>>> GetAllCompanies()
         {
-            ServiceResponse<List<Company>> response = new ServiceResponse<List<Company>>();
-            response.Data = companies;
+            ServiceResponse<List<GetCompanyDto>> response = new ServiceResponse<List<GetCompanyDto>>();
+            response.Data = companies.Select(c => _mapper.Map<GetCompanyDto>(c)).ToList();
             
             return response;
         }
 
-        public async Task<ServiceResponse<Company>> GetCompanyById(int id)
+        public async Task<ServiceResponse<GetCompanyDto>> GetCompanyById(int id)
         {
-            ServiceResponse<Company> response = new ServiceResponse<Company>();
+            ServiceResponse<GetCompanyDto> response = new ServiceResponse<GetCompanyDto>();
 
-            response.Data = companies.FirstOrDefault(x => x.Id == id);
+            var company = companies.FirstOrDefault(x => x.Id == id);
+            response.Data = _mapper.Map<GetCompanyDto>(company);
             
             return response;
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using start_csharp.Models;
+using tutorial_csharp.Dtos.Company;
 using tutorial_csharp.Models;
 using tutorial_csharp.Services.CompanyService;
 
@@ -21,20 +22,20 @@ namespace csharp_tutorial.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<Company>>>> Get() {
+        public async Task<ActionResult<ServiceResponse<List<GetCompanyDto>>>> Get() {
 
             return Ok(await this.companyService.GetAllCompanies());
 
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Company>>> GetSingle(int id) {
+        public async Task<ActionResult<ServiceResponse<GetCompanyDto>>> GetSingle(int id) {
             
             return Ok(await this.companyService.GetCompanyById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Company>>>> AddCompany(Company newCompany) {
+        public async Task<ActionResult<ServiceResponse<List<GetCompanyDto>>>> AddCompany(AddCompanyDto newCompany) {
             
             return Ok(await this.companyService.AddCompany(newCompany));
         }
