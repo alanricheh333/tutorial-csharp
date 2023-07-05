@@ -35,7 +35,7 @@ namespace csharp_tutorial.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetCompanyDto>>>> AddCompany(AddCompanyDto newCompany) {
+        public async Task<ActionResult<ServiceResponse<GetCompanyDto>>> AddCompany(AddCompanyDto newCompany) {
             
             return Ok(await this.companyService.AddCompany(newCompany));
         }

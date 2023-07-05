@@ -6,30 +6,39 @@ using AutoMapper;
 using start_csharp.Models;
 using tutorial_csharp.Dtos.Company;
 using tutorial_csharp.Models;
+using tutorial_csharp.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace tutorial_csharp.Services.CompanyService
 {
     public class CompanyService : ICompanyService
     {
-        private static List<Company> companies = new List<Company> {
-            new Company(),
-            new Company {Id = 1, Name = "Alan", LegalName="Legal Alan"},
-        };
+        // private static List<Company> companies = new List<Company> {
+        //     new Company(),
+        //     new Company {Id = 1, Name = "Alan", LegalName="Legal Alan"},
+        // };
 
         private readonly IMapper _mapper;
+        private readonly TutorialDbContext _context;
 
-        public CompanyService(IMapper mapper)
+        public CompanyService(IMapper mapper, TutorialDbContext context)
         {
+            _context = context;
             _mapper = mapper;
         }
 
-        public async Task<ServiceResponse<List<GetCompanyDto>>> AddCompany(AddCompanyDto newCompany)
+        public async Task<ServiceResponse<GetCompanyDto>> AddCompany(AddCompanyDto newCompany)
         {   
-            ServiceResponse<List<GetCompanyDto>> response = new ServiceResponse<List<GetCompanyDto>>();
+            ServiceResponse<GetCompanyDto> response = new ServiceResponse<GetCompanyDto>();
             var company = _mapper.Map<Company>(newCompany);
-            company.Id = companies.Max(x => x.Id) + 1;
-            companies.Add(company);
-            response.Data = companies.Select(c => _mapper.Map<GetCompanyDto>(c)).ToList();
+
+            var dbCompany = await _context.Companies.AddAsync(company);
+            
+            // company.Id = companies.Max(x => x.Id) + 1;
+            // companies.Add(company);
+            
+            // response.Data = _context.Companies.Select(c => _mapper.Map<GetCompanyDto>(c)).ToList();
+            response.Data = _mapper.Map<GetCompanyDto>(dbCompany.Entity);
             
             return response;
         }
@@ -37,7 +46,9 @@ namespace tutorial_csharp.Services.CompanyService
         public async Task<ServiceResponse<List<GetCompanyDto>>> GetAllCompanies()
         {
             ServiceResponse<List<GetCompanyDto>> response = new ServiceResponse<List<GetCompanyDto>>();
-            response.Data = companies.Select(c => _mapper.Map<GetCompanyDto>(c)).ToList();
+            
+            var dbCompany = await _context.Companies.ToListAsync();
+            response.Data = dbCompany.Select(c => _mapper.Map<GetCompanyDto>(c)).ToList();
             
             return response;
         }
@@ -46,8 +57,9 @@ namespace tutorial_csharp.Services.CompanyService
         {
             ServiceResponse<GetCompanyDto> response = new ServiceResponse<GetCompanyDto>();
 
-            var company = companies.FirstOrDefault(x => x.Id == id);
-            response.Data = _mapper.Map<GetCompanyDto>(company);
+            var dbCompany = await _context.Companies.FirstOrDefaultAsync(c => c.Id == id);
+            // var company = companies.FirstOrDefault(x => x.Id == id);
+            response.Data = _mapper.Map<GetCompanyDto>(dbCompany);
             
             return response;
         }

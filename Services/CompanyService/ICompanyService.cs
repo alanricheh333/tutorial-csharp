@@ -12,7 +12,7 @@ namespace tutorial_csharp.Services.CompanyService
     {
         Task<ServiceResponse<List<GetCompanyDto>>> GetAllCompanies();
         Task<ServiceResponse<GetCompanyDto>> GetCompanyById(int id);
-        Task<ServiceResponse<List<GetCompanyDto>>> AddCompany(AddCompanyDto newCompany);
+        Task<ServiceResponse<GetCompanyDto>> AddCompany(AddCompanyDto newCompany);
 
     }
 }
